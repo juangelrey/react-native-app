@@ -1,50 +1,62 @@
-# Welcome to your Expo app 👋
+# To-Do List Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple and intuitive to-do list application built with React Native and Expo.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Add, edit, and delete tasks
+- Mark tasks as complete
+- Categorize tasks (Work, Personal, Shopping, Other)
+- Track progress with a visual progress bar
+- Set deadlines for tasks
+- Clean and modern UI
+- Persistent storage using AsyncStorage
 
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- pnpm (`npm install -g pnpm`)
+- Expo CLI (`pnpm add -g expo-cli`)
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
    ```bash
-   npm install
+   pnpm install
+   ```
+3. Start the development server:
+   ```bash
+   pnpm start
    ```
 
-2. Start the app
+### Running the App
 
-   ```bash
-    npx expo start
-   ```
+- For iOS: `pnpm run ios`
+- For Android: `pnpm run android`
+- For web: `pnpm run web`
 
-In the output, you'll find options to open the app in a
+## Project Structure
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+  ├── components/     # Reusable UI components
+  ├── screens/        # Screen components
+  ├── utils/          # Utility functions
+  ├── constants/      # Theme and other constants
+  └── models/         # Data models
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Technologies Used
 
-## Learn more
+- React Native
+- Expo
+- React Navigation
+- React Native Paper
+- AsyncStorage
 
-To learn more about developing your project with Expo, look at the following resources:
+## License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License.
