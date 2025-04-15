@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { FAB, Text, ActivityIndicator, Card, Checkbox, Chip, IconButton } from 'react-native-paper';
 import { router, useRouter } from 'expo-router';
 import { Task } from '../components/Task';
@@ -7,8 +7,8 @@ import { ProgressBar } from '../components/ProgressBar';
 import { useTodoContext } from '../contexts/TodoContext';
 import { CategoryBadge } from '../components/CategoryBadge';
 import { format } from 'date-fns';
-import { useTheme } from '../contexts/ThemeContext';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Todo {
   id: string;
@@ -39,6 +39,10 @@ export default function HomeScreen() {
     router.push({ pathname: '/edit-task' as any, params: { id } });
   };
 
+  const handleDelete = (id: string) => {
+    deleteTodo(id);
+  };
+
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -53,14 +57,22 @@ export default function HomeScreen() {
   const completedCount = filteredTodos.filter(todo => todo.completed).length;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ThemeToggle />
       
-      <View style={styles.header}>        
-        
+      <View style={styles.header}>
+        <Text variant="headlineMedium" style={styles.title}>
+          Stuipid Tasks
+        </Text>
+        <Text variant="bodyLarge" style={styles.subtitle}>
+          {completedCount} of {todos.length} completed
+        </Text>
       </View>
 
-      <ProgressBar completed={completedCount} total={filteredTodos.length} />
+      <ProgressBar
+        completed={completedCount}
+        total={todos.length}
+      />
 
       <View style={styles.categoriesContainer}>
         {categories.length > 0 && (
@@ -82,23 +94,23 @@ export default function HomeScreen() {
         {filteredTodos.map((todo) => (
           <Task
             key={todo.id}
+            id={todo.id}
             title={todo.title}
             description={todo.description}
             category={todo.category}
             isCompleted={todo.completed}
             onToggle={() => toggleTodo(todo.id)}
-            onPress={() => {}}
-            onEdit={() => handleEdit(todo.id)}
-            onDelete={() => deleteTodo(todo.id)}
+            onEdit={() => router.push({ pathname: '/add-task', params: { id: todo.id } } as any)}
+            onDelete={() => handleDelete(todo.id)}
           />
         ))}
       </ScrollView>
       <FAB
         style={[styles.fab, { backgroundColor: theme.colors.primary }]}
         icon="plus"
-        onPress={() => router.push({ pathname: '/add-task' as any })}
+        onPress={() => router.push({ pathname: '/add-task' } as any)}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -155,5 +167,20 @@ const styles = StyleSheet.create({
   },
   badgesScroll: {
     marginBottom: 16,
+  },
+  title: {
+    marginBottom: 8,
+  },
+  subtitle: {
+    color: '#666',
+  },
+  progressBar: {
+    marginBottom: 16,
+  },
+  categoriesContent: {
+    paddingHorizontal: 16,
+  },
+  tasksContainer: {
+    flex: 1,
   },
 }); 
